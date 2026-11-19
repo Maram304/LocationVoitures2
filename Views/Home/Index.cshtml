@@ -1,0 +1,97 @@
+﻿@model IEnumerable<LocationVoitures.Web.Models.Voiture>
+
+@{
+    ViewData["Title"] = "Accueil - LocationVoitures";
+}
+
+<!-- ===================== HERO ===================== -->
+<section class="hero-section text-center text-white">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">LocationVoitures</h1>
+        <p class="lead mb-4">Louez la voiture idéale au meilleur prix : citadines, berlines et utilitaires, disponibles dès aujourd'hui.</p>
+        <a href="#catalogue" class="btn btn-light btn-lg px-4 fw-semibold">Voir notre flotte</a>
+    </div>
+</section>
+
+<!-- ===================== CATALOGUE ===================== -->
+<section id="catalogue" class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold section-title">Notre catalogue</h2>
+        <p class="text-muted">Tous nos véhicules, mis à jour en temps réel</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <!-- État sans données -->
+        <div class="text-center py-5 border rounded bg-light">
+            <div class="display-4 mb-3">🚘</div>
+            <h4 class="text-muted">Aucun véhicule disponible pour le moment</h4>
+            <p class="text-secondary mb-0">Revenez bientôt, notre flotte est en cours de mise à jour.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var voiture in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card car-card h-100 shadow-sm border-0">
+
+                        <!-- Image de la catégorie (si elle existe) -->
+                        @if (!string.IsNullOrEmpty(voiture.CategoryVoiture?.ImageUrl))
+                        {
+                            <img src="@voiture.CategoryVoiture.ImageUrl"
+                                 alt="@voiture.CategoryVoiture.Libelle"
+                                 class="card-img-top car-img" />
+                        }
+                        else
+                        {
+                            <div class="car-img d-flex align-items-center justify-content-center bg-light text-muted">
+                                🚗 Pas d'image
+                            </div>
+                        }
+
+                        <div class="card-body d-flex flex-column">
+                            <!-- Badge catégorie -->
+                            <div class="mb-2">
+                                <span class="badge badge-category">
+                                    @(voiture.CategoryVoiture?.Libelle ?? "Non catégorisée")
+                                </span>
+                            </div>
+
+                            <!-- Marque + modèle -->
+                            <h5 class="card-title fw-bold mb-1">@voiture.Marque @voiture.Modele</h5>
+
+                            <!-- Matricule et année -->
+                            <p class="text-muted small mb-3">
+                                <span class="font-monospace">@voiture.Matricule</span> · @voiture.Annee
+                            </p>
+
+                            <!-- Tarif -->
+                            <div class="price-tag mb-3">
+                                @voiture.PrixJour.ToString("N2")
+                                <small>TND / jour</small>
+                            </div>
+
+                            <!-- Disponibilité + bouton -->
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                @if (voiture.EstDisponible)
+                                {
+                                    <span class="badge bg-success">✓ Disponible</span>
+                                    <a asp-controller="Voiture" asp-action="Details" asp-route-id="@voiture.Id"
+                                       class="btn btn-reserve btn-sm px-3">Réserver ce véhicule</a>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">✕ En location</span>
+                                    <a asp-controller="Voiture" asp-action="Details" asp-route-id="@voiture.Id"
+                                       class="btn btn-outline-secondary btn-sm px-3">Voir la fiche</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

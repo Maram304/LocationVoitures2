@@ -1,0 +1,98 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+/* ===== Charte graphique LocationVoitures (reprise du TP 1) ===== */
+:root {
+    --brand-main: #d63384;
+    --brand-dark: #a61e69;
+    --brand-light: #fce4ef;
+}
+
+/* Hero */
+.hero-section {
+    background: linear-gradient(135deg, var(--brand-main), var(--brand-dark));
+    padding: 3rem 0;
+}
+
+/* Titres de section */
+.section-title {
+    color: var(--brand-dark);
+}
+
+/* Cartes véhicules */
+.car-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+    .car-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(214, 51, 132, .25) !important;
+    }
+
+.car-img {
+    height: 190px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Badge catégorie */
+.badge-category {
+    background-color: var(--brand-light);
+    color: var(--brand-dark);
+    font-weight: 600;
+}
+
+/* Tarif */
+.price-tag {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--brand-main);
+}
+
+    .price-tag small {
+        font-size: .85rem;
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+/* Bouton réserver */
+.btn-reserve {
+    background-color: var(--brand-main);
+    color: #fff;
+    border: none;
+}
+
+    .btn-reserve:hover {
+        background-color: var(--brand-dark);
+        color: #fff;
+    }
